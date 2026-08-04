@@ -1,4 +1,9 @@
-<app-navbar titulo="Reservas" ruta="/reservas"></app-navbar>
+<app-navbar 
+    [titulo]="'Ver reservas'"
+    [ruta]="'/reservas'"
+    [titulo2]="'Ver platos'"
+    [ruta2]="'/agregar-plato'">
+</app-navbar>
 <div class="container">
     <div>
         <h2>Añadir Mesa</h2>

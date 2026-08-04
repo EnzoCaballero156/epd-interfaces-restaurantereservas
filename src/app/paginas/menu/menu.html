@@ -1,69 +1,37 @@
-<app-navbar [titulo]="'Reservar'" [ruta]="'/reservar'"></app-navbar>
+<app-navbar 
+    [titulo]="'Reservar'" 
+    [ruta]="'/reservar'">
+</app-navbar>
+
+<div>
+    <form [formGroup]="searchForm" (ngSubmit)="filtrarPorNombre()">
+        <div>
+            <input type="text" formControlName="request" placeholder="Sopa, Pollo, Pizza, etc...">
+        </div>
+        <div>
+            <button type="submit">
+                Filtrar
+            </button>
+        </div>  
+    </form>
+</div>
+
 <div class="Login-container">
-    <div class="Login-card">
-        <div>
-            <div>
-                <h4>Lasaña</h4>
-                <p>S/. 40.00</p>
+    @if (platos.length > 0) {
+        @for (plato of platos; track plato.nombre) {
+            <div class="Login-card">
+                <div>
+                    <div>
+                        <h4>{{ plato.nombre }}</h4>
+                        <p>S/. {{ plato.precio }}</p>
+                    </div>
+                    <div>
+                        <img [src]="plato.rutaImagen" alt="platoImg">
+                    </div>
+                </div>
             </div>
-            <div>
-                <img src="Imagenes/lasana.png">
-            </div>
-        </div>
-    </div>
-    <div class="Login-card">
-        <div>
-            <div>
-                <h4>Pollo a la Brasa</h4>
-                <p>S/. 60.00</p>
-            </div>
-            <div>
-                <img src="Imagenes/Pollo.png">
-            </div>
-        </div>
-    </div>
-    <div class="Login-card">
-        <div>
-            <div>
-                <h4>Pizza</h4>
-                <p>S/. 30.00</p>
-            </div>
-            <div>
-                <img src="Imagenes/Pizza.png">
-            </div>
-        </div>
-    </div>
-    <div class="Login-card">
-        <div>
-            <div>
-                <h4>Ceviche</h4>
-                <p>S/. 35.00</p>
-            </div>
-            <div>
-                <img src="Imagenes/CEVICHE.png">
-            </div>
-        </div>
-    </div>
-    <div class="Login-card">
-        <div>
-            <div>
-                <h4>Carbonara</h4>
-                <p>S/. 40.00</p>
-            </div>
-            <div>
-                <img src="Imagenes/carbonara.png">
-            </div>
-        </div>
-    </div>
-    <div class="Login-card">
-        <div>
-            <div>
-                <h4>Causa Limeña</h4>
-                <p>S/. 35.00</p>
-            </div>
-            <div>
-                <img src="Imagenes/causa.png">
-            </div>
-        </div>
-    </div>
+        }
+    } @else {
+        <h1>No hay platos disponibles. Vuelva pronto.</h1>
+    }
 </div>

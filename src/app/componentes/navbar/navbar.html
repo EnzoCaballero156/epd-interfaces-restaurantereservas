@@ -1,13 +1,21 @@
 <nav>
-  <div>
-    <img src="Imagenes/Logo.png" alt="Logo">
-  </div>
-  <ul>
-    <li>
-      <a [routerLink]="ruta">
-        {{ titulo }}
-      </a>
-      <button (click)="cerrarSesion()">Cerrar sesión</button>
-    </li>
-  </ul>
+    <div>
+        <img src="Imagenes/Logo.png" alt="Logo">
+    </div>
+
+    <ul>
+        <li>
+            <a [routerLink]="ruta">
+                {{ titulo }}
+            </a>
+        </li>
+
+        @if(titulo2){
+            <li>
+                <a [routerLink]="ruta2">
+                    {{ titulo2 }}
+                </a>
+            </li>
+        }
+    </ul>
 </nav>

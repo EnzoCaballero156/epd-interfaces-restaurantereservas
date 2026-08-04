@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../servicios/auth-service';
 
@@ -14,11 +14,14 @@ export class Navbar {
   @Input() titulo: string = '';
   @Input() ruta: string = '';
 
-  private authService = inject(AuthService)
-  private router = inject(Router)
+  @Input() titulo2: string = '';
+  @Input() ruta2: string = '';
+
+  private authService = inject(AuthService);
+  private router = inject(Router);
 
   public cerrarSesion(): void {
-    this.authService.logout()
-    this.router.navigate(['/'])
+    this.authService.logout();
+    this.router.navigate(['/']);
   }
 }
