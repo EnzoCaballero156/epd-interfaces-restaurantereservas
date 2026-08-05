@@ -12,15 +12,21 @@ plato_service = PlatoService(plato_repository)
 def obtener_platos():
     platos = plato_service.obtener_platos()
     return jsonify([{
-            "nombre": plato.nombre,
-            "precio": plato.precio,
-            "rutaImagen": plato.ruta_imagen
+        "id": plato.id,
+        "nombre": plato.nombre,
+        "precio": plato.precio,
+        "rutaImagen": plato.ruta_imagen
     } for plato in platos])
 
 @plato_bp.post('/')
 def registrar_plato():
     try:
-        datos = request.get_json()
+        nombre = request.form['nombre']
+        precio = request.form['precio']
+        imagen = request.files['imagen']
+
+        extension = imagen.filename.rsplit('.', 1)[1]
+
         nuevo_plato = plato_service.registrar_plato(datos)
         return jsonify({
             "id": nuevo_plato.id,
@@ -31,3 +37,10 @@ def registrar_plato():
     except Exception as e:
         return jsonify({"error": f"No se pudo realizar la operación. {e}"}), 401
 
+@plato_bp.delete('/<int:id>')
+def eliminar_plato(id):
+    try:
+        plato_service.eliminar_plato_por_id(id)
+        return jsonify({"mensaje": "Plato eliminado."})
+    except Exception as e:
+        return jsonify({"error": f"No se pudo realizar la operación. {e}"}), 401

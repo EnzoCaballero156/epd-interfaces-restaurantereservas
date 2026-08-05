@@ -7,7 +7,7 @@
 <div>
     <div>
         <h2>Agregar Plato</h2>
-        <form [formGroup]="platoForm" (ngSubmit)="publicar()">
+        <form [formGroup]="platoForm" (ngSubmit)="publicar()" enctype="multipart/form-data">
             <div>
                 <input type="text" placeholder="Nombre" formControlName="nombre">
             </div>
@@ -38,7 +38,7 @@
                         <td>{{ plato.nombre }}</td>
                         <td>S/. {{ plato.precio }}</td>
                         <td><img [src]="plato.rutaImagen"></td>
-                        <td><button (click)="eliminar(plato.nombre)">🗑</button></td>
+                        <td><button (click)="eliminar(plato.id)">🗑</button></td>
                     </tr>  
                 }
             </tbody>

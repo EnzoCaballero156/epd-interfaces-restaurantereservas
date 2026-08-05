@@ -49,15 +49,25 @@ export class AgregarPlato implements OnInit {
   public publicar(): void {
     if (this.platoForm.invalid || !this.imagen) return
     let { nombre, precio } = this.platoForm.getRawValue()
-    this.platoService.addPlato(nombre, precio).subscribe({
-      next: plato => this.platos.push(plato),
+
+    const formData = new FormData()
+    formData.append("nombre", nombre)
+    formData.append("precio", precio.toString())
+    formData.append("imagen", this.imagen, this.imagen.name)
+
+    this.platoService.addPlato(formData).subscribe({
+      next: plato => {
+        this.platos.push(plato)
+        this.loadPlatos()
+      },
       error: error => alert(error)
     })
-    this.loadPlatos()
   }
 
-  public eliminar(nombrePlato: string): void {
-    // this.platoService.eliminarPlato(nombrePlato)
-    // this.platos = this.platoService.getAll()
+  public eliminar(id: number): void {
+    this.platoService.eliminarPlatoPorID(id).subscribe({
+      next: () => this.loadPlatos(),
+      error: error => alert(error)
+    })
   }
 }

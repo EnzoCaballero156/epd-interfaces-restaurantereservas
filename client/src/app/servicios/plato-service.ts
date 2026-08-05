@@ -29,15 +29,15 @@ export class PlatoService {
     // return newPlato
   }
 
-  public addPlato(nombre: string, precio: number): Observable<Plato> {
+  public addPlato(data: FormData): Observable<Plato> {
     // let data = this.getAll()
     // data.push(newPlato)
     // localStorage.setItem('platos', JSON.stringify(data))
-    console.log(nombre)
-    return this.http.post<Plato>(this.apiURL, { nombre, precio, rutaImagen: "../assets/img.png" }).pipe(catchError(this.handleError))
+    return this.http.post<Plato>(this.apiURL, { data }).pipe(catchError(this.handleError))
   }
 
-  public eliminarPlato(nombre: string): void {
+  public eliminarPlatoPorID(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiURL}${id}`).pipe(catchError(this.handleError))
     // let data = this.getAll()
     // let newData = data.filter(item => item.nombre !== nombre)
     // localStorage.setItem('platos', JSON.stringify(newData))
