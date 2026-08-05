@@ -1,0 +1,35 @@
+<app-navbar 
+    [titulo]="'Reservar'" 
+    [ruta]="'/reservar'">
+</app-navbar>
+
+<div>
+    <form [formGroup]="searchForm" (ngSubmit)="filtrarPorNombre()">
+        <div>
+            <input type="text" formControlName="request" placeholder="Sopa, Pollo, Pizza, etc...">
+        </div>
+        <div>
+            <button type="submit">
+                Filtrar
+            </button>
+        </div>  
+    </form>
+</div>
+
+<div class="Login-container">
+    @for (plato of platos; track plato.nombre) {
+        <div class="Login-card">
+            <div>
+                <div>
+                    <h4>{{ plato.nombre }}</h4>
+                    <p>S/. {{ plato.precio }}</p>
+                </div>
+                <div>
+                    <img [src]="plato.rutaImagen" alt="platoImg">
+                </div>
+            </div>
+        </div>
+    } @empty {
+        <h1>No hay platos disponibles. Vuelva pronto.</h1>
+    }
+</div>
