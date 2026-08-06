@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { Navbar } from '../../componentes/navbar/navbar';
 import { DisponibilidadMesas } from '../../componentes/disponibilidad-mesas/disponibilidad-mesas';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -13,6 +13,7 @@ import { Mesa, MesaService } from '../../servicios/mesa-service';
 })
 export class Mesas implements OnInit {
   private mesaService = inject(MesaService)
+  private cdr = inject(ChangeDetectorRef)
   private fb = inject(FormBuilder)
 
   public mesas: Mesa[] = []
@@ -23,14 +24,28 @@ export class Mesas implements OnInit {
   })
 
   ngOnInit(): void {
-    this.mesas = this.mesaService.getAll()
+    this.loadMesas()
+  }
+
+  private loadMesas(): void {
+    this.mesaService.getAll().subscribe({
+      next: mesas => {
+        this.mesas = mesas
+        this.cdr.detectChanges()
+      },
+      error: error => alert(error)
+    })
   }
 
   public agregarMesa(): void {
     if (this.mesaForm.invalid) return
     let { nombre, capacidad } = this.mesaForm.getRawValue()
-    let newMesa = this.mesaService.crearMesa(nombre, capacidad)
-    this.mesaService.addMesa(newMesa)
-    this.mesas.push(newMesa)
+    this.mesaService.agregarMesa(nombre, capacidad).subscribe({
+      next: mesa => {
+        this.mesas.push(mesa)
+        this.loadMesas()
+      },
+      error: error => alert(error)
+    })
   }
 }

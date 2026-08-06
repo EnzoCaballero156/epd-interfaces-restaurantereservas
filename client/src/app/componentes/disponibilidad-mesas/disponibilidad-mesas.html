@@ -8,7 +8,7 @@
             </tr>
         </thead>
         <tbody>
-            @for (mesa of mesas; track mesa) {
+            @for (mesa of mesas; track mesa.id) {
                 <tr>
                     <td>{{ mesa.nombre }}</td>
                     <td>{{ mesa.capacidad }}</td>

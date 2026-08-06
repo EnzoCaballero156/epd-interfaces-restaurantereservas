@@ -23,8 +23,9 @@ export class Register {
   public autenticar(): void {
     if (this.registerForm.invalid) return
     let { username, email, password } = this.registerForm.getRawValue()
-    this.authService.register(username, email, password)
-    if (!this.authService.isLoggedIn()) return
-    this.router.navigate(['/menu'])
+    this.authService.register(username, email, password).subscribe({
+      next: () => this.router.navigate(['/menu']),
+      error: error => alert(error)
+    })
   }
 }

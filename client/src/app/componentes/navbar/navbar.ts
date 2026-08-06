@@ -21,7 +21,8 @@ export class Navbar {
   private router = inject(Router);
 
   public cerrarSesion(): void {
-    this.authService.logout();
-    this.router.navigate(['/']);
+    this.authService.logout().subscribe({
+      next: () => this.router.navigate(['/'])
+    });
   }
 }

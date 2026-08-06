@@ -1,9 +1,9 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 
 export interface Plato {
-  id: number,
+  id: string,
   nombre: string,
   precio: number,
   rutaImagen: string
@@ -13,34 +13,23 @@ export interface Plato {
   providedIn: 'root',
 })
 export class PlatoService {
-  private readonly apiURL = 'http://localhost:5000/api/platos/'
-
+  private readonly apiURL = 'http://localhost:5000/api/platos'
   private http = inject(HttpClient)
 
   public getAll(): Observable<Plato[]> {
-      // let data = localStorage.getItem('platos')
-      // return data ? JSON.parse(data) : []
-      return this.http.get<Plato[]>(this.apiURL).pipe(catchError(this.handleError))
-    }
-
-  // devolvia Plato
-  public crearPlato(nombre: string, precio: number): void {
-    // let newPlato: Plato = { nombre, precio, rutaImagen: "../assets/plato.png" }
-    // return newPlato
+    return this.http.get<Plato[]>(`${this.apiURL}/`, { withCredentials: true }).pipe(catchError(this.handleError))
   }
 
-  public addPlato(data: FormData): Observable<Plato> {
-    // let data = this.getAll()
-    // data.push(newPlato)
-    // localStorage.setItem('platos', JSON.stringify(data))
-    return this.http.post<Plato>(this.apiURL, { data }).pipe(catchError(this.handleError))
+  public agregarPlato(data: FormData): Observable<Plato> {
+    return this.http.post<Plato>(`${this.apiURL}/`, data, { withCredentials: true }).pipe(catchError(this.handleError))
   }
 
-  public eliminarPlatoPorID(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.apiURL}${id}`).pipe(catchError(this.handleError))
-    // let data = this.getAll()
-    // let newData = data.filter(item => item.nombre !== nombre)
-    // localStorage.setItem('platos', JSON.stringify(newData))
+  public eliminarPlatoPorID(id: string): Observable<any> {
+    return this.http.delete<any>(`${this.apiURL}/${id}`, { withCredentials: true }).pipe(catchError(this.handleError))
+  }
+
+  public getImagePath(route: string): string {
+    return `${this.apiURL}/${route}`
   }
 
   private handleError(error: HttpErrorResponse) {

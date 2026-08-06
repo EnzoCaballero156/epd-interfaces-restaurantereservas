@@ -9,13 +9,17 @@
                 {{ titulo }}
             </a>
         </li>
-
-        @if(titulo2){
+        @if (titulo2) {
             <li>
                 <a [routerLink]="ruta2">
                     {{ titulo2 }}
                 </a>
             </li>
         }
+        <li>
+            <a (click)="cerrarSesion()">
+                Cerrar sesión
+            </a>
+        </li>
     </ul>
 </nav>

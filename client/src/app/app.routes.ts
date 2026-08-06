@@ -18,5 +18,5 @@ export const routes: Routes = [
     { path: 'reservar', component: Reservar, canActivate: [authGuard] },
     { path: 'mesas', component: Mesas, canActivate: [authGuard, adminGuard] },
     { path: 'reservas', component: Reservas, canActivate: [authGuard, adminGuard] },
-    {path: 'agregar-plato', component: AgregarPlato }
+    {path: 'agregar-plato', component: AgregarPlato, canActivate: [authGuard, adminGuard]}
 ];

@@ -3,7 +3,7 @@ from entities.reserva import Reserva
 from utils.misc import db
 
 class ReservaRepository(IReservaRepository):
-    def find_all():
+    def find_all(self):
         return Reserva.query.all()
 
     def find_by_id(self, id):

@@ -1,8 +1,9 @@
 import { inject, Injectable } from '@angular/core';
-import { User, UserService } from './user-service';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { catchError, Observable, throwError } from 'rxjs';
 
 export interface Sesion {
-  username: string,
+  id: string,
   email: string
 }
 
@@ -10,42 +11,29 @@ export interface Sesion {
   providedIn: 'root',
 })
 export class AuthService {
-  private userService = inject(UserService)
+  private readonly apiURL = "http://localhost:5000/api/auth"
+  private http = inject(HttpClient)
 
-  public crearSesion(data: User): void {
-    let sesion: Sesion = {
-      username: data.username,
-      email: data.email
-    }
-    localStorage.setItem('sesion', JSON.stringify(sesion))
+  public cargarSesion(): Observable<Sesion> {
+    return this.http.get<Sesion>(`${this.apiURL}/@me`, { withCredentials: true }).pipe(catchError(this.handleError))
   }
 
-  public cargarSesion(): Sesion | null {
-    let data = localStorage.getItem('sesion')
-    return data ? JSON.parse(data) : null
+  public login(email: string, password: string): Observable<Sesion> {
+    return this.http.post<Sesion>(`${this.apiURL}/login`, { email, password }, { withCredentials: true }).pipe(catchError(this.handleError))
   }
 
-  public login(email: string, password: string): void {
-    if (email === "admin@admin.xyz" && password === "admin") {
-      this.crearSesion({ username: "admin", email: email, password: password }); return
-    }
-    let usuarioEncontrado = this.userService.getByEmailAndPassword(email, password)
-    if (!usuarioEncontrado) return
-    this.crearSesion(usuarioEncontrado)
+  public register(username: string, email: string, password: string): Observable<Sesion> {
+    return this.http.post<Sesion>(`${this.apiURL}/register`, { username, email, password }, { withCredentials: true }).pipe(catchError(this.handleError))
   }
 
-  public register(username: string, email: string, password: string): void {
-    if (this.userService.existsByEmail(email)) return
-    let newUser: User = this.userService.crearUser(username, email, password)
-    this.userService.addUser(newUser)
-    this.crearSesion(newUser)
+  public logout(): Observable<any> {
+    return this.http.post<any>(`${this.apiURL}/logout`, null, { withCredentials: true }).pipe(catchError(this.handleError))
   }
 
-  public logout(): void {
-    localStorage.removeItem('sesion')
-  }
-
-  public isLoggedIn(): boolean {
-    return localStorage.getItem('sesion') ? true : false
+  private handleError(error: HttpErrorResponse) {
+    const message = error.status === 0
+      ? 'No se pudo conectar con la API.'
+      : `Error ${error.status}: ${error.message}`;
+    return throwError(() => new Error(message));
   }
 }

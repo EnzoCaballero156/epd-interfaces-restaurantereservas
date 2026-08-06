@@ -39,6 +39,10 @@ export class Menu implements OnInit {
     })
   }
 
+  public rutaImagen(ruta: string) {
+    return this.platoService.getImagePath(ruta)
+  }
+
   public filtrarPorNombre(): void {
     let { request } = this.searchForm.getRawValue()
     const results = this.platosData.filter(plato => plato.nombre.toLowerCase().includes(request.toLowerCase()))

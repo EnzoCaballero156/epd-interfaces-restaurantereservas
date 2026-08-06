@@ -26,10 +26,10 @@ export class AgregarPlato implements OnInit {
   public platos: Plato[] = []
 
   ngOnInit(): void {
-      this.loadPlatos()
+    this.loadPlatos()
   }
 
-  public loadPlatos(): void {
+  private loadPlatos(): void {
     this.platoService.getAll().subscribe({
       next: platos => {
         this.platos = platos
@@ -37,6 +37,10 @@ export class AgregarPlato implements OnInit {
       },
       error: error => alert(error)
     })
+  }
+
+  public rutaImagen(ruta: string) {
+    return this.platoService.getImagePath(ruta)
   }
 
   public handleFileChange(event: Event) {
@@ -55,7 +59,7 @@ export class AgregarPlato implements OnInit {
     formData.append("precio", precio.toString())
     formData.append("imagen", this.imagen, this.imagen.name)
 
-    this.platoService.addPlato(formData).subscribe({
+    this.platoService.agregarPlato(formData).subscribe({
       next: plato => {
         this.platos.push(plato)
         this.loadPlatos()
@@ -64,7 +68,7 @@ export class AgregarPlato implements OnInit {
     })
   }
 
-  public eliminar(id: number): void {
+  public eliminar(id: string): void {
     this.platoService.eliminarPlatoPorID(id).subscribe({
       next: () => this.loadPlatos(),
       error: error => alert(error)

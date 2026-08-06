@@ -26,9 +26,9 @@
                     </div>
                     <div>
                         <label>Mesa</label>
-                        <select name="mesas" id="mesas" formControlName="mesa">
-                            @for (mesa of mesasDisponibles; track mesa) {
-                                <option [value]="mesa.nombre">{{ mesa.nombre }}</option>
+                        <select name="mesas" id="mesas" formControlName="mesaID">
+                            @for (mesa of mesasDisponibles; track mesa.id) {
+                                <option [value]="mesa.id">{{ mesa.nombre }}</option>
                             }
                         </select>
                     </div>

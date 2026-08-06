@@ -37,7 +37,7 @@
                     <tr>
                         <td>{{ plato.nombre }}</td>
                         <td>S/. {{ plato.precio }}</td>
-                        <td><img [src]="plato.rutaImagen"></td>
+                        <td><img [src]="rutaImagen(plato.rutaImagen)" width="50"></td>
                         <td><button (click)="eliminar(plato.id)">🗑</button></td>
                     </tr>  
                 }

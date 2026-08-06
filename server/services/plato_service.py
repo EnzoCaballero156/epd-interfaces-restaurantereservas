@@ -11,10 +11,9 @@ class PlatoService:
     def obtener_plato_por_id(self, id):
         return self.plato_repository.find_by_id(id)
 
-    def registrar_plato(self, datos: dict):
-        nombre = datos.get("nombre")
-        precio = datos.get("precio")
-        ruta_imagen = datos.get("rutaImagen")
+    def registrar_plato(self, nombre, precio, ruta_imagen):
+        if not nombre or not precio or not ruta_imagen:
+            raise Exception("Datos incompletos.")
         plato = Plato(nombre=nombre, precio=precio, ruta_imagen=ruta_imagen)
         return self.plato_repository.save(plato)
 
