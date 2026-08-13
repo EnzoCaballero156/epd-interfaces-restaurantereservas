@@ -15,7 +15,7 @@ export interface Reserva {
   providedIn: 'root',
 })
 export class ReservaService {
-  private readonly apiURL = "http://localhost:5000/api/reservas"
+  private readonly apiURL = "/api/reservas"
   private http = inject(HttpClient)
 
   public getAll(): Observable<Reserva[]> {

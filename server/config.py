@@ -1,11 +1,35 @@
 from dotenv import load_dotenv
+from datetime import timedelta
 import os
+import redis
 
 load_dotenv()
 
-class ApplicationConfig:
-    SECRET_KEY = os.environ['SECRET_KEY']
+# ruta base de config.py
+base_dir = os.path.abspath(os.path.dirname(__file__))
+
+class Config:
+    SECRET_KEY = os.environ.get("SECRET_KEY", "dhuwdh287hda82h41")
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    SESSION_COOKIE_HTTPONLY = True
+    SESSION_COOKIE_SAMESITE = "Lax"
+
+class DevelopmentConfig(Config):
+    SQLALCHEMY_DATABASE_URI = fr"sqlite:///{os.path.join(base_dir, "db.sqlite")}"
+    SQLALCHEMY_ECHO = True
+
+    SESSION_TYPE = "redis"
+    SESSION_PERMANENT = False
+    SESSION_USE_SIGNER = True
+
+    SESSION_REDIS = redis.from_url("redis://127.0.0.1:6379?protocol=2")
+    SESSION_COOKIE_SECURE = False
+
+class ProductionConfig(Config):
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
     SQLALCHEMY_ECHO = False
-    SQLALCHEMY_DATABASE_URI = r"sqlite:///./db.sqlite"
+
+    SESSION_TYPE = "filesystem"
+    SESSION_COOKIE_SECURE = True

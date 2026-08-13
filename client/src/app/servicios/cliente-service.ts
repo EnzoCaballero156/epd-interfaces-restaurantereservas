@@ -12,7 +12,7 @@ export interface Cliente {
   providedIn: 'root',
 })
 export class ClienteService {
-  private readonly apiURL = "http://localhost:5000/api/clientes"
+  private readonly apiURL = "/api/clientes"
   private http = inject(HttpClient)
 
   public getAll(): Observable<Cliente[]> {

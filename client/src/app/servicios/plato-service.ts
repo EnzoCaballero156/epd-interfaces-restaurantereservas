@@ -13,7 +13,7 @@ export interface Plato {
   providedIn: 'root',
 })
 export class PlatoService {
-  private readonly apiURL = 'http://localhost:5000/api/platos'
+  private readonly apiURL = '/api/platos'
   private http = inject(HttpClient)
 
   public getAll(): Observable<Plato[]> {

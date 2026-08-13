@@ -11,7 +11,7 @@ export interface Sesion {
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly apiURL = "http://localhost:5000/api/auth"
+  private readonly apiURL = "/api/auth"
   private http = inject(HttpClient)
 
   public cargarSesion(): Observable<Sesion> {

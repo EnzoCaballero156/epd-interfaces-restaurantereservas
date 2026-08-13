@@ -13,7 +13,7 @@ export interface Mesa {
   providedIn: 'root',
 })
 export class MesaService {
-  private readonly apiURL = "http://localhost:5000/api/mesas"
+  private readonly apiURL = "/api/mesas"
   private http = inject(HttpClient)
 
   public getAll(): Observable<Mesa[]> {
