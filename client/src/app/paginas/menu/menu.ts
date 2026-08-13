@@ -46,7 +46,7 @@ export class Menu implements OnInit {
   public filtrarPorNombre(): void {
     let { request } = this.searchForm.getRawValue()
     const results = this.platosData.filter(plato => plato.nombre.toLowerCase().includes(request.toLowerCase()))
-    this.platos = results
-    this.cdr.detectChanges()
+    this.platos = results;
+    this.cdr.detectChanges();
   }
 }

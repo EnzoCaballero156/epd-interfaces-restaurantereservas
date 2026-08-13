@@ -1,5 +1,6 @@
-from flask import Blueprint, jsonify, request, send_from_directory, abort
+from flask import Blueprint, jsonify, request
 import os
+import cloudinary.uploader
 
 from repositories.plato.plato_repository import PlatoRepository
 from services.plato_service import PlatoService
@@ -26,13 +27,12 @@ def registrar_plato():
         precio = float(request.form['precio'])
         imagen = request.files['imagen']
 
-        folder = os.path.join(os.getcwd(), 'files')
+        upload = cloudinary.uploader.upload(
+            imagen,
+            folder="platos"
+        )
 
-        os.makedirs(folder, exist_ok=True)
-
-        save_route = os.path.join(folder, imagen.filename)
-        ruta_imagen = f"files/{imagen.filename}"
-        imagen.save(save_route)
+        ruta_imagen = upload.get("secure_url")
 
         nuevo_plato = plato_service.registrar_plato(nombre, precio, ruta_imagen)
         return jsonify({
@@ -51,11 +51,3 @@ def eliminar_plato(id):
         return jsonify({"mensaje": "Plato eliminado."})
     except Exception as e:
         return jsonify({"error": str(e)}), 401
-
-@plato_bp.get('/files/<filename>')
-def get_image_file(filename):
-    folder = os.path.abspath('files')
-    full_route = os.path.join(folder, filename)
-    if not os.path.exists(full_route):
-        return abort(404)
-    return send_from_directory(folder, filename)

@@ -1,39 +1,62 @@
-/* Fuentes */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap');
 
 :root {
-  --color-black: #0d0d0d;
-  --color-white: #ffffff;
-  --color-page-start: #aab3bd;
-  --color-page-end: #4b5563;
-  --color-btn-start: #e5e5e5;
-  --color-btn-end: #6b7280;
-  --radius-card: 28px;
-  --radius-pill: 30px;
-  --font-heading: 'Playfair Display', serif;
-  --font-body: 'Poppins', sans-serif;
+  --verde: #146b52;
+  --verde-claro: #239b75;
+  --verde-oscuro: #0d6049;
+
+  --negro: #111111;
+  --blanco: #ffffff;
+  --gris: #555555;
+
+  --radio: 14px;
+  --fuente-titulo: 'Playfair Display', Georgia, serif;
+  --fuente: 'Poppins', Arial, sans-serif;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
 }
 
 body {
-    background: linear-gradient(160deg, var(--color-page-start), var(--color-page-end));
-    min-height: 100vh;
+  min-height: 100vh;
+
+  font-family: var(--fuente);
+
+  color: var(--negro);
+
+  background-color: #ffffff;
+  background-image: url('/Imagenes/fondo-blanco.jpg');
+  background-repeat: repeat;
+  background-size: 400px;
 }
 
-a {
-    text-decoration: none;
+button,
+input,
+select {
+  font-family: var(--fuente);
 }
 
 button {
-    cursor: pointer;
+  cursor: pointer;
 }
 
-input {
-    outline: none;
+input,
+select {
+  outline: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
 }

@@ -1,55 +1,99 @@
 :host {
   display: block;
-  margin: 0 auto;
+
+  min-height: calc(100vh - 48px);
+
+  padding: 10px 15px 20px;
 }
 
-:host > div:first-of-type {
-  background-color: var(--color-black);
-  border-radius: var(--radius-card);
-  padding: 20px;
+.container {
+  width: 100%;
+
+  display: block;
+}
+
+/* TITULO */
+
+.container > div:first-child {
+  width: 270px;
+
+  margin: 0 auto 10px;
+
+  padding: 7px 15px;
+
+  border-radius: 7px;
+
+  background: var(--verde);
+
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.20);
+
   text-align: center;
-  max-width: 1000px;
-  margin-bottom: 20px;
 }
 
-:host > div:first-of-type h2 {
-  font-family: var(--font-heading);
-  color: var(--color-white);
-  font-size: 24px;
+.container > div:first-child h2 {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-family: var(--fuente-titulo);
+
+  font-size: 13px;
 }
+
+/* TABLA */
 
 .tabla-reservas {
-  background-color: var(--color-black);
-  border-radius: var(--radius-card);
-  padding: 20px 30px 40px;
+  width: 270px;
+
+  min-height: 145px;
+
+  margin: 0 auto;
+
+  padding: 0;
+
+  background: #ffffff;
+
+  border-radius: 8px;
+
+  overflow: hidden;
+
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.20);
 }
 
 .tabla-reservas table {
   width: 100%;
+
   border-collapse: collapse;
-  color: var(--color-white);
-  font-family: var(--font-body);
+
+  background: #ffffff;
+
+  color: #111111;
 }
 
-.tabla-reservas thead th {
-  font-size: 15px;
-  font-weight: 700;
-  padding: 14px 10px 18px;
-  border-bottom: 1px solid #555;
+.tabla-reservas th {
+  height: 25px;
+
+  padding: 4px;
+
+  border: 1px solid #999;
+
+  color: #111111;
+
+  font-size: 7px;
+
   text-align: center;
 }
 
-.tabla-reservas tbody td {
-  padding: 14px 10px;
+.tabla-reservas td {
+  height: 24px;
+
+  padding: 4px;
+
+  border: 1px solid #999;
+
+  color: #111111;
+
+  font-size: 7px;
+
   text-align: center;
-  font-weight: 500;
-  border-right: 1px solid #333;
-}
-
-.tabla-reservas tbody td:last-child {
-  border-right: none;
-}
-
-.container {
-  align-items: center;
 }

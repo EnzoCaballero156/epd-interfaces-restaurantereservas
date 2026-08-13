@@ -29,7 +29,7 @@ export class PlatoService {
   }
 
   public getImagePath(route: string): string {
-    return `${this.apiURL}/${route}`
+    return route;
   }
 
   private handleError(error: HttpErrorResponse) {
